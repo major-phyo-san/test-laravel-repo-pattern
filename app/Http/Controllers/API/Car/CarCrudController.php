@@ -32,17 +32,28 @@ class CarCrudController extends Controller
     public function index(QueryCarRequest $request)
     {
         //
-        return response()->json($request->query());
+        // return response()->json($request->query());
+        // $filteredCars = null;
+
         if($request->all() == []){
             $allCars = $this->carRepository->getAllCars();
             responseData('all cars', $allCars, 200);
-        }
-
+        }        
+        
         else{
             $queryData = $request->all();
-
-            $filteredCars = $this->carRepository->queryCars($queryData);
-            responseData('filtered cars', $filteredCars, 200);
+            if(isset($queryData['maker'])){
+                $filteredCars = $this->carRepository->queryCars(['key' => 'maker', 'value' => $queryData['maker']]);
+                responseData('filtered cars', $filteredCars, 200);
+            }
+            if(isset($queryData['model'])){
+                $filteredCars = $this->carRepository->queryCars(['key' => 'model', 'value' => $queryData['model']]);
+                responseData('filtered cars', $filteredCars, 200);
+            }
+            if(isset($queryData['year'])){
+                $filteredCars = $this->carRepository->queryCars(['key' => 'year', 'value' => $queryData['year']]);
+                responseData('filtered cars', $filteredCars, 200);
+            }
         }
 
     }

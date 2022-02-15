@@ -31,10 +31,9 @@ class CarRepository implements CarRepositoryInterface{
         return Car::destroy($carId);
     }
 
-    public function queryCars(array $queryData)
-    {
-        
-        return Car::where($queryData['maker'], $queryData['maker']);
+    public function queryCars(array $filter)
+    {        
+        return Car::where($filter['key'], $filter['value'])->get();
     }
 
 }

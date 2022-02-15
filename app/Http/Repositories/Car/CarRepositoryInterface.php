@@ -16,6 +16,6 @@ interface CarRepositoryInterface{
 
     public function deleteCar($carId);
 
-    public function queryCars(array $queryData);
+    public function queryCars(array $filter);
 
 }
